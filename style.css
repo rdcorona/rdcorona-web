@@ -1,141 +1,549 @@
+/* ============================================
+   TECTONIC CODEX — rdcoronaf.page
+   Mayan codex aesthetic + tectonic mechanics
+   ============================================ */
+
 :root {
-    --bg-dark: #1a1a1b; /* Estilo Burton: Casi negro */
-    --accent-maya: #c5a059; /* Oro Maya / Ocre */
-    --text-light: #e0e0e0;
-    --gray-muted: #888;
+    --obsidian: #0d0d0f;
+    --obsidian-light: #161618;
+    --stone: #1e1e21;
+    --stone-light: #2a2a2e;
+    --maya-gold: #c5a059;
+    --maya-gold-dim: rgba(197, 160, 89, 0.15);
+    --jade: #2d8a6e;
+    --jade-dim: rgba(45, 138, 110, 0.15);
+    --volcanic: #8b3a2a;
+    --volcanic-glow: rgba(180, 80, 40, 0.3);
+    --text-primary: #e8e4dc;
+    --text-secondary: #9a958a;
+    --text-muted: #6b665d;
 }
 
-body, html {
-    margin: 0;
-    padding: 0;
+/* ---- Reset & Base ---- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
     height: 100%;
-    font-family: 'Roboto Mono', monospace;
-    background-color: var(--bg-dark);
-    color: var(--text-light);
+    font-family: 'IBM Plex Mono', monospace;
+    background-color: var(--obsidian);
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+body {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    min-height: 100vh;
+    position: relative;
 }
 
+/* ---- Noise texture overlay ---- */
+.noise-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+}
+
+/* ---- Mayan stepped-fret borders ---- */
+.mayan-border {
+    width: 100%;
+    height: 28px;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+.mayan-border svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.mayan-border--top {
+    border-bottom: 1px solid rgba(197, 160, 89, 0.12);
+}
+
+.mayan-border--bottom {
+    border-top: 1px solid rgba(197, 160, 89, 0.12);
+}
+
+/* ---- Header ---- */
 .main-header {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 30px 20px;
-    background-color: #111;
-    border-bottom: 1px solid #333;
-    z-index: 10;
+    padding: 40px 24px 32px;
+    background: linear-gradient(180deg, rgba(13, 13, 15, 0.95) 0%, var(--obsidian) 100%);
+    position: relative;
+    z-index: 2;
 }
 
 .header-content {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 32px;
+    max-width: 680px;
+}
+
+/* Mayan-style profile frame */
+.profile-frame {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
 }
 
 .profile-photo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #333;
-    border: 2px solid var(--accent-maya);
+    width: 96px;
+    height: 96px;
     object-fit: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gray-muted);
-    font-size: 0.8rem;
+    clip-path: polygon(
+        8% 0%, 92% 0%,
+        100% 8%, 100% 92%,
+        92% 100%, 8% 100%,
+        0% 92%, 0% 8%
+    );
+    filter: grayscale(15%) contrast(1.05);
+    transition: filter 0.5s ease;
 }
 
+.profile-photo:hover {
+    filter: grayscale(0%) contrast(1.1);
+}
+
+.profile-frame__corner {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-color: var(--maya-gold);
+    opacity: 0.6;
+}
+
+.profile-frame__corner--tl {
+    top: -4px; left: -4px;
+    border-top: 2px solid; border-left: 2px solid;
+}
+.profile-frame__corner--tr {
+    top: -4px; right: -4px;
+    border-top: 2px solid; border-right: 2px solid;
+}
+.profile-frame__corner--bl {
+    bottom: -4px; left: -4px;
+    border-bottom: 2px solid; border-left: 2px solid;
+}
+.profile-frame__corner--br {
+    bottom: -4px; right: -4px;
+    border-bottom: 2px solid; border-right: 2px solid;
+}
+
+/* Name typography */
 .header-text {
     display: flex;
     flex-direction: column;
 }
 
-.header-text h1 {
-    margin: 0;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: var(--text-light);
+.name-title {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: 0.06em;
+    color: var(--text-primary);
+    line-height: 1.1;
 }
 
-.header-text p {
-    margin: 5px 0 0 0;
-    color: var(--gray-muted);
-    font-size: 0.9rem;
-    letter-spacing: 1px;
+.name-subtitle {
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: var(--maya-gold);
+    margin-top: 2px;
+    text-transform: uppercase;
 }
 
-.container {
+.title-divider {
     display: flex;
-    flex: 1; /* Toma el espacio restante */
-    width: 100%;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0 10px;
 }
 
-.section {
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--maya-gold) 0%, transparent 100%);
+    opacity: 0.4;
+}
+
+.glyph {
+    font-size: 0.5rem;
+    color: var(--maya-gold);
+    opacity: 0.5;
+}
+
+.tagline {
+    font-size: 0.78rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.ampersand {
+    font-family: 'Cinzel', serif;
+    font-style: italic;
+    color: var(--maya-gold);
+    opacity: 0.7;
+    padding: 0 2px;
+}
+
+/* ---- Tectonic Container (main split) ---- */
+.tectonic-container {
+    flex: 1;
+    display: flex;
+    position: relative;
+    min-height: 0;
+}
+
+/* The central fissure */
+.fissure {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.seismo-line {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.fissure-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--volcanic-glow) 35%,
+        rgba(197, 160, 89, 0.08) 50%,
+        var(--volcanic-glow) 65%,
+        transparent 100%
+    );
+    opacity: 0.5;
+}
+
+/* ---- Tectonic Plates ---- */
+.plate {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
     color: inherit;
-    transition: all 0.5s ease;
-    padding: 40px;
-    text-align: center;
-    border-right: 1px solid #333;
+    position: relative;
+    padding: 48px 40px;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+                background-color 0.4s ease;
+    overflow: hidden;
 }
 
-.section:last-child { border-right: none; }
-
-/* Efecto Hover */
-.section:hover {
-    flex: 1.2;
-    background-color: #252526;
-}
-
-.section.academic:hover { border-bottom: 8px solid var(--accent-maya); }
-.section.professional:hover { border-bottom: 8px solid #4a90e2; }
-
-.content h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    margin: 20px 0;
-    color: var(--accent-maya);
-}
-
-.icon-maya, .icon-tech {
-    font-size: 4rem;
-    margin-bottom: 10px;
-    opacity: 0.7;
-}
-
-.btn {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 10px 20px;
-    border: 1px solid var(--accent-maya);
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-}
-
-footer {
+.plate::before {
+    content: '';
     position: absolute;
-    bottom: 20px;
-    width: 100%;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.plate--academic {
+    background: var(--obsidian-light);
+}
+
+.plate--academic::before {
+    background: radial-gradient(ellipse at 70% 50%, var(--maya-gold-dim) 0%, transparent 70%);
+}
+
+.plate--professional {
+    background: var(--obsidian-light);
+}
+
+.plate--professional::before {
+    background: radial-gradient(ellipse at 30% 50%, var(--jade-dim) 0%, transparent 70%);
+}
+
+.plate:hover::before {
+    opacity: 1;
+}
+
+.plate:hover {
+    background: var(--stone);
+}
+
+/* Plate surface content */
+.plate-surface {
+    position: relative;
+    z-index: 2;
+    max-width: 380px;
     text-align: center;
+}
+
+.plate-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 24px;
+    opacity: 0.5;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.plate:hover .plate-icon {
+    opacity: 0.8;
+    transform: translateY(-3px);
+}
+
+.icon-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.plate--academic .plate-icon { color: var(--maya-gold); }
+.plate--professional .plate-icon { color: var(--jade); }
+
+.plate-title {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    letter-spacing: 0.03em;
+    margin-bottom: 16px;
+    transition: color 0.4s ease;
+}
+
+.plate--academic .plate-title { color: var(--maya-gold); }
+.plate--professional .plate-title { color: var(--jade); }
+
+.plate-desc {
+    font-size: 0.82rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    letter-spacing: 0.01em;
+}
+
+/* CTA button */
+.plate-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 24px;
     font-size: 0.7rem;
-    color: var(--gray-muted);
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.plate--academic .plate-cta {
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    color: var(--maya-gold);
+}
+
+.plate--academic:hover .plate-cta {
+    border-color: rgba(197, 160, 89, 0.6);
+    background: rgba(197, 160, 89, 0.06);
+}
+
+.plate--professional .plate-cta {
+    border: 1px solid rgba(45, 138, 110, 0.3);
+    color: var(--jade);
+}
+
+.plate--professional:hover .plate-cta {
+    border-color: rgba(45, 138, 110, 0.6);
+    background: rgba(45, 138, 110, 0.06);
+}
+
+.cta-arrow {
+    transition: transform 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.plate:hover .cta-arrow {
+    transform: translateX(4px);
+}
+
+/* Mayan corner glyphs on plates */
+.plate-glyph {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    opacity: 0.6;
+    transition: opacity 0.4s ease;
+}
+
+.plate:hover .plate-glyph {
+    opacity: 1;
+}
+
+.plate-glyph--tl { top: 20px; left: 20px; }
+.plate-glyph--br { bottom: 20px; right: 20px; }
+
+/* ---- Footer ---- */
+.site-footer {
+    padding: 16px 24px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    background: var(--obsidian);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
 }
 
 .social-links a {
-    color: var(--accent-maya);
-    margin: 0 10px;
-    text-decoration: none;
+    color: var(--text-muted);
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
 }
 
-/* Responsivo para móviles */
-@media (max-width: 768px) {
-    .container { flex-direction: column; }
-    .section { height: 50vh; }
+.social-links a:hover {
+    color: var(--maya-gold);
+    transform: translateY(-2px);
+}
+
+.copyright {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+    .name-title { font-size: 1.5rem; }
+    .plate-title { font-size: 1.25rem; }
+    .plate { padding: 36px 28px; }
+    .header-content { gap: 20px; }
+}
+
+@media (max-width: 700px) {
+    .tectonic-container {
+        flex-direction: column;
+    }
+
+    .plate {
+        padding: 48px 32px;
+        min-height: 45vh;
+    }
+
+    /* Fissure becomes horizontal */
+    .fissure {
+        left: 0;
+        right: 0;
+        top: 50%;
+        bottom: auto;
+        transform: translateY(-50%);
+        width: 100%;
+        height: 48px;
+    }
+
+    .seismo-line {
+        /* Redraw horizontally handled by script */
+    }
+
+    .fissure-glow {
+        background: linear-gradient(180deg,
+            transparent 0%,
+            var(--volcanic-glow) 35%,
+            rgba(197, 160, 89, 0.08) 50%,
+            var(--volcanic-glow) 65%,
+            transparent 100%
+        );
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .title-divider {
+        justify-content: center;
+    }
+
+    .divider-line {
+        max-width: 80px;
+        background: linear-gradient(90deg, transparent, var(--maya-gold), transparent);
+    }
+
+    .name-title { font-size: 1.4rem; }
+    .name-subtitle { font-size: 0.85rem; }
+
+    .profile-frame {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-photo {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 400px) {
+    .main-header { padding: 28px 16px 24px; }
+    .name-title { font-size: 1.2rem; }
+    .plate { padding: 36px 20px; }
+    .plate-title { font-size: 1.1rem; }
+    .plate-desc { font-size: 0.75rem; }
+}
+
+/* ---- Entrance animations ---- */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.main-header {
+    animation: fadeUp 0.8s ease both;
+}
+
+.plate--academic {
+    animation: fadeUp 0.8s ease 0.15s both;
+}
+
+.plate--professional {
+    animation: fadeUp 0.8s ease 0.3s both;
+}
+
+.fissure {
+    animation: fadeIn 1.2s ease 0.5s both;
+}
+
+.mayan-border {
+    animation: fadeIn 1s ease 0.6s both;
+}
+
+.site-footer {
+    animation: fadeUp 0.6s ease 0.5s both;
 }
