@@ -1,22 +1,53 @@
 /* ============================================
-   TECTONIC CODEX — rdcoronaf.page
-   Mayan codex aesthetic + tectonic mechanics
+   LA TRAZA — rdcoronaf.page
+   Panel de instrumento: neutros azul-grisáceos,
+   dos canales (N–S / E–W) + un acento de arribo.
+   Claro por defecto, oscuro por sistema o botón.
    ============================================ */
 
 :root {
-    --obsidian: #0d0d0f;
-    --obsidian-light: #161618;
-    --stone: #1e1e21;
-    --stone-light: #2a2a2e;
-    --maya-gold: #c5a059;
-    --maya-gold-dim: rgba(197, 160, 89, 0.15);
-    --jade: #2d8a6e;
-    --jade-dim: rgba(45, 138, 110, 0.15);
-    --volcanic: #8b3a2a;
-    --volcanic-glow: rgba(180, 80, 40, 0.3);
-    --text-primary: #e8e4dc;
-    --text-secondary: #9a958a;
-    --text-muted: #6b665d;
+    /* ---- claro (por defecto) ---- */
+    --bg: #E7EBF1;
+    --surface-1: #EDF1F6;
+    --surface-2: #F9FAFC;
+    --line: #C4CEDA;
+    --fg: #1A2431;
+    --fg-dim: #465262;
+    --fg-mute: #67717F;
+    --chan-n: #2E5DA0;      /* canal N–S · investigación */
+    --chan-e: #1C716C;      /* canal E–W · ingeniería */
+    --arrival: #BE5330;     /* arribo P — único acento cálido */
+
+    --f-display: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Segoe UI", system-ui, sans-serif;
+    --f-text: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Segoe UI", system-ui, sans-serif;
+    --f-mono: Menlo, "Cascadia Mono", "SF Mono", Consolas, "DejaVu Sans Mono", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #12161C;
+        --surface-1: #171C24;
+        --surface-2: #1E2530;
+        --line: #2B3440;
+        --fg: #DBE2EB;
+        --fg-dim: #98A3B2;
+        --fg-mute: #7C8695;
+        --chan-n: #6A9BDA;
+        --chan-e: #46ABA4;
+        --arrival: #DE7A50;
+    }
+}
+:root[data-theme="dark"] {
+    --bg: #12161C;
+    --surface-1: #171C24;
+    --surface-2: #1E2530;
+    --line: #2B3440;
+    --fg: #DBE2EB;
+    --fg-dim: #98A3B2;
+    --fg-mute: #7C8695;
+    --chan-n: #6A9BDA;
+    --chan-e: #46ABA4;
+    --arrival: #DE7A50;
 }
 
 /* ---- Reset & Base ---- */
@@ -24,9 +55,9 @@
 
 html, body {
     height: 100%;
-    font-family: 'IBM Plex Mono', monospace;
-    background-color: var(--obsidian);
-    color: var(--text-primary);
+    font-family: var(--f-text);
+    background-color: var(--bg);
+    color: var(--fg);
     overflow-x: hidden;
 }
 
@@ -35,6 +66,12 @@ body {
     flex-direction: column;
     min-height: 100vh;
     position: relative;
+}
+
+:focus-visible {
+    outline: 2px solid var(--chan-n);
+    outline-offset: 3px;
+    border-radius: 1px;
 }
 
 /* ---- Noise texture overlay ---- */
@@ -49,7 +86,37 @@ body {
     background-size: 256px 256px;
 }
 
-/* ---- Mayan stepped-fret borders ---- */
+/* ---- Theme toggle ---- */
+.theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 60;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    background: var(--surface-1);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--fg-dim);
+    cursor: pointer;
+    transition: color 0.18s ease, border-color 0.18s ease;
+}
+.theme-toggle:hover { color: var(--fg); border-color: var(--fg-mute); }
+.theme-toggle svg { width: 16px; height: 16px; display: block; }
+.theme-toggle .i-sun { display: none; }
+.theme-toggle .i-moon { display: block; }
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-toggle .i-sun { display: block; }
+    :root:not([data-theme="light"]) .theme-toggle .i-moon { display: none; }
+}
+:root[data-theme="dark"] .theme-toggle .i-sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .i-moon { display: none; }
+:root[data-theme="light"] .theme-toggle .i-sun { display: none; }
+:root[data-theme="light"] .theme-toggle .i-moon { display: block; }
+
+/* ---- Stepped-fret borders ---- */
 .mayan-border {
     width: 100%;
     height: 28px;
@@ -66,11 +133,11 @@ body {
 }
 
 .mayan-border--top {
-    border-bottom: 1px solid rgba(197, 160, 89, 0.12);
+    border-bottom: 1px solid var(--line);
 }
 
 .mayan-border--bottom {
-    border-top: 1px solid rgba(197, 160, 89, 0.12);
+    border-top: 1px solid var(--line);
 }
 
 /* ---- Header ---- */
@@ -79,7 +146,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 40px 24px 32px;
-    background: linear-gradient(180deg, rgba(13, 13, 15, 0.95) 0%, var(--obsidian) 100%);
+    background: linear-gradient(180deg, var(--surface-1) 0%, var(--bg) 100%);
     position: relative;
     z-index: 2;
 }
@@ -91,7 +158,7 @@ body {
     max-width: 680px;
 }
 
-/* Mayan-style profile frame */
+/* Profile frame */
 .profile-frame {
     position: relative;
     width: 96px;
@@ -109,7 +176,7 @@ body {
         92% 100%, 8% 100%,
         0% 92%, 0% 8%
     );
-    filter: grayscale(15%) contrast(1.05);
+    filter: grayscale(35%) contrast(1.05);
     transition: filter 0.5s ease;
 }
 
@@ -121,8 +188,8 @@ body {
     position: absolute;
     width: 14px;
     height: 14px;
-    border-color: var(--maya-gold);
-    opacity: 0.6;
+    border-color: var(--chan-n);
+    opacity: 0.7;
 }
 
 .profile-frame__corner--tl {
@@ -149,21 +216,21 @@ body {
 }
 
 .name-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--f-display);
     font-weight: 700;
     font-size: 2rem;
-    letter-spacing: 0.06em;
-    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    color: var(--fg);
     line-height: 1.1;
 }
 
 .name-subtitle {
-    font-family: 'Cinzel', serif;
-    font-weight: 400;
-    font-size: 1rem;
+    font-family: var(--f-mono);
+    font-weight: 500;
+    font-size: 0.82rem;
     letter-spacing: 0.15em;
-    color: var(--maya-gold);
-    margin-top: 2px;
+    color: var(--chan-n);
+    margin-top: 4px;
     text-transform: uppercase;
 }
 
@@ -177,29 +244,29 @@ body {
 .divider-line {
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, var(--maya-gold) 0%, transparent 100%);
+    background: linear-gradient(90deg, var(--chan-n) 0%, transparent 100%);
     opacity: 0.4;
 }
 
 .glyph {
     font-size: 0.5rem;
-    color: var(--maya-gold);
+    color: var(--chan-n);
     opacity: 0.5;
 }
 
 .tagline {
-    font-size: 0.78rem;
-    font-weight: 300;
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
     letter-spacing: 0.12em;
-    color: var(--text-secondary);
+    color: var(--fg-dim);
     text-transform: uppercase;
 }
 
 .ampersand {
-    font-family: 'Cinzel', serif;
-    font-style: italic;
-    color: var(--maya-gold);
-    opacity: 0.7;
+    font-family: var(--f-mono);
+    color: var(--chan-n);
+    opacity: 0.85;
     padding: 0 2px;
 }
 
@@ -235,9 +302,9 @@ body {
     inset: 0;
     background: linear-gradient(90deg,
         transparent 0%,
-        var(--volcanic-glow) 35%,
-        rgba(197, 160, 89, 0.08) 50%,
-        var(--volcanic-glow) 65%,
+        color-mix(in srgb, var(--arrival) 26%, transparent) 35%,
+        color-mix(in srgb, var(--chan-n) 8%, transparent) 50%,
+        color-mix(in srgb, var(--arrival) 26%, transparent) 65%,
         transparent 100%
     );
     opacity: 0.5;
@@ -253,6 +320,7 @@ body {
     color: inherit;
     position: relative;
     padding: 48px 40px;
+    background: var(--surface-1);
     transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
                 background-color 0.4s ease;
     overflow: hidden;
@@ -266,20 +334,12 @@ body {
     transition: opacity 0.4s ease;
 }
 
-.plate--academic {
-    background: var(--obsidian-light);
-}
-
 .plate--academic::before {
-    background: radial-gradient(ellipse at 70% 50%, var(--maya-gold-dim) 0%, transparent 70%);
-}
-
-.plate--professional {
-    background: var(--obsidian-light);
+    background: radial-gradient(ellipse at 70% 50%, color-mix(in srgb, var(--chan-n) 16%, transparent) 0%, transparent 70%);
 }
 
 .plate--professional::before {
-    background: radial-gradient(ellipse at 30% 50%, var(--jade-dim) 0%, transparent 70%);
+    background: radial-gradient(ellipse at 30% 50%, color-mix(in srgb, var(--chan-e) 16%, transparent) 0%, transparent 70%);
 }
 
 .plate:hover::before {
@@ -287,8 +347,11 @@ body {
 }
 
 .plate:hover {
-    background: var(--stone);
+    background: var(--surface-2);
 }
+
+.plate--academic:hover { transform: translateX(-6px); }
+.plate--professional:hover { transform: translateX(6px); }
 
 /* Plate surface content */
 .plate-surface {
@@ -302,12 +365,12 @@ body {
     width: 56px;
     height: 56px;
     margin: 0 auto 24px;
-    opacity: 0.5;
+    opacity: 0.6;
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .plate:hover .plate-icon {
-    opacity: 0.8;
+    opacity: 0.9;
     transform: translateY(-3px);
 }
 
@@ -316,27 +379,27 @@ body {
     height: 100%;
 }
 
-.plate--academic .plate-icon { color: var(--maya-gold); }
-.plate--professional .plate-icon { color: var(--jade); }
+.plate--academic .plate-icon { color: var(--chan-n); }
+.plate--professional .plate-icon { color: var(--chan-e); }
 
 .plate-title {
-    font-family: 'Cinzel', serif;
-    font-weight: 600;
+    font-family: var(--f-display);
+    font-weight: 700;
     font-size: 1.5rem;
     line-height: 1.3;
-    letter-spacing: 0.03em;
+    letter-spacing: -0.01em;
     margin-bottom: 16px;
     transition: color 0.4s ease;
 }
 
-.plate--academic .plate-title { color: var(--maya-gold); }
-.plate--professional .plate-title { color: var(--jade); }
+.plate--academic .plate-title { color: var(--chan-n); }
+.plate--professional .plate-title { color: var(--chan-e); }
 
 .plate-desc {
-    font-size: 0.82rem;
-    font-weight: 300;
+    font-size: 0.88rem;
+    font-weight: 400;
     line-height: 1.7;
-    color: var(--text-secondary);
+    color: var(--fg-dim);
     margin-bottom: 28px;
     letter-spacing: 0.01em;
 }
@@ -347,7 +410,8 @@ body {
     align-items: center;
     gap: 10px;
     padding: 10px 24px;
-    font-size: 0.7rem;
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -356,23 +420,23 @@ body {
 }
 
 .plate--academic .plate-cta {
-    border: 1px solid rgba(197, 160, 89, 0.3);
-    color: var(--maya-gold);
+    border: 1px solid color-mix(in srgb, var(--chan-n) 30%, transparent);
+    color: var(--chan-n);
 }
 
 .plate--academic:hover .plate-cta {
-    border-color: rgba(197, 160, 89, 0.6);
-    background: rgba(197, 160, 89, 0.06);
+    border-color: color-mix(in srgb, var(--chan-n) 60%, transparent);
+    background: color-mix(in srgb, var(--chan-n) 8%, transparent);
 }
 
 .plate--professional .plate-cta {
-    border: 1px solid rgba(45, 138, 110, 0.3);
-    color: var(--jade);
+    border: 1px solid color-mix(in srgb, var(--chan-e) 30%, transparent);
+    color: var(--chan-e);
 }
 
 .plate--professional:hover .plate-cta {
-    border-color: rgba(45, 138, 110, 0.6);
-    background: rgba(45, 138, 110, 0.06);
+    border-color: color-mix(in srgb, var(--chan-e) 60%, transparent);
+    background: color-mix(in srgb, var(--chan-e) 8%, transparent);
 }
 
 .cta-arrow {
@@ -384,7 +448,7 @@ body {
     transform: translateX(4px);
 }
 
-/* Mayan corner glyphs on plates */
+/* Corner glyphs on plates */
 .plate-glyph {
     position: absolute;
     width: 40px;
@@ -406,7 +470,7 @@ body {
     text-align: center;
     position: relative;
     z-index: 2;
-    background: var(--obsidian);
+    background: var(--bg);
 }
 
 .social-links {
@@ -417,20 +481,21 @@ body {
 }
 
 .social-links a {
-    color: var(--text-muted);
+    color: var(--fg-mute);
     transition: color 0.3s ease, transform 0.3s ease;
     display: flex;
     align-items: center;
 }
 
 .social-links a:hover {
-    color: var(--maya-gold);
+    color: var(--chan-n);
     transform: translateY(-2px);
 }
 
 .copyright {
+    font-family: var(--f-mono);
     font-size: 0.65rem;
-    color: var(--text-muted);
+    color: var(--fg-mute);
     letter-spacing: 0.08em;
 }
 
@@ -452,6 +517,8 @@ body {
         min-height: 45vh;
     }
 
+    .plate--academic:hover, .plate--professional:hover { transform: none; }
+
     /* Fissure becomes horizontal */
     .fissure {
         left: 0;
@@ -463,16 +530,12 @@ body {
         height: 48px;
     }
 
-    .seismo-line {
-        /* Redraw horizontally handled by script */
-    }
-
     .fissure-glow {
         background: linear-gradient(180deg,
             transparent 0%,
-            var(--volcanic-glow) 35%,
-            rgba(197, 160, 89, 0.08) 50%,
-            var(--volcanic-glow) 65%,
+            color-mix(in srgb, var(--arrival) 26%, transparent) 35%,
+            color-mix(in srgb, var(--chan-n) 8%, transparent) 50%,
+            color-mix(in srgb, var(--arrival) 26%, transparent) 65%,
             transparent 100%
         );
     }
@@ -488,11 +551,11 @@ body {
 
     .divider-line {
         max-width: 80px;
-        background: linear-gradient(90deg, transparent, var(--maya-gold), transparent);
+        background: linear-gradient(90deg, transparent, var(--chan-n), transparent);
     }
 
     .name-title { font-size: 1.4rem; }
-    .name-subtitle { font-size: 0.85rem; }
+    .name-subtitle { font-size: 0.72rem; }
 
     .profile-frame {
         width: 80px;
@@ -503,6 +566,8 @@ body {
         width: 80px;
         height: 80px;
     }
+
+    .theme-toggle { top: 12px; right: 12px; width: 32px; height: 32px; }
 }
 
 @media (max-width: 400px) {
@@ -546,4 +611,12 @@ body {
 
 .site-footer {
     animation: fadeUp 0.6s ease 0.5s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
 }

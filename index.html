@@ -4,22 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raúl Daniel Corona-Fernández, PhD</title>
+    <meta name="description" content="Raúl Daniel Corona-Fernández, PhD — Earth Sciences &amp; Software Engineering. Earthquake seismology research at UNAM and software development engineering in test.">
+    <link rel="canonical" href="https://www.rdcoronaf.page/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.rdcoronaf.page/">
+    <meta property="og:title" content="Raúl Daniel Corona-Fernández, PhD">
+    <meta property="og:description" content="Earth Sciences &amp; Software Engineering — earthquake seismology research and software development engineering in test.">
+    <meta property="og:image" content="https://www.rdcoronaf.page/profile.jpg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Raúl Daniel Corona-Fernández, PhD">
+    <meta name="twitter:description" content="Earth Sciences &amp; Software Engineering — earthquake seismology research and software development engineering in test.">
+    <meta name="twitter:image" content="https://www.rdcoronaf.page/profile.jpg">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Noise texture overlay -->
     <div class="noise-overlay"></div>
+
+    <!-- Theme toggle -->
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
+    </button>
 
     <!-- Mayan border pattern — top -->
     <div class="mayan-border mayan-border--top">
         <svg viewBox="0 0 1200 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <pattern id="stepfret-top" x="0" y="0" width="60" height="28" patternUnits="userSpaceOnUse">
-                    <path d="M0 28 L0 18 L10 18 L10 10 L20 10 L20 0 L40 0 L40 10 L50 10 L50 18 L60 18 L60 28Z" fill="none" stroke="var(--maya-gold)" stroke-width="1.2" opacity="0.5"/>
+                    <path d="M0 28 L0 18 L10 18 L10 10 L20 10 L20 0 L40 0 L40 10 L50 10 L50 18 L60 18 L60 28Z" fill="none" stroke="var(--chan-n)" stroke-width="1.2" opacity="0.5"/>
                 </pattern>
             </defs>
             <rect width="1200" height="28" fill="url(#stepfret-top)"/>
@@ -30,10 +44,10 @@
     <header class="main-header">
         <div class="header-content">
             <div class="profile-frame">
-                <div class="profile-frame_corner profile-frame_corner--tl"></div>
-                <div class="profile-frame_corner profile-frame_corner--tr"></div>
-                <div class="profile-frame_corner profile-frame_corner--bl"></div>
-                <div class="profile-frame_corner profile-frame_corner--br"></div>
+                <div class="profile-frame__corner profile-frame__corner--tl"></div>
+                <div class="profile-frame__corner profile-frame__corner--tr"></div>
+                <div class="profile-frame__corner profile-frame__corner--bl"></div>
+                <div class="profile-frame__corner profile-frame__corner--br"></div>
                 <img src="profile.jpg" alt="Raúl Daniel Corona-Fernández" class="profile-photo">
             </div>
             <div class="header-text">
@@ -77,10 +91,10 @@
             </div>
             <!-- Mayan corner glyphs -->
             <div class="plate-glyph plate-glyph--tl">
-                <svg viewBox="0 0 40 40"><path d="M0 0 L20 0 L20 8 L8 8 L8 20 L0 20Z" fill="var(--maya-gold)" opacity="0.15"/></svg>
+                <svg viewBox="0 0 40 40"><path d="M0 0 L20 0 L20 8 L8 8 L8 20 L0 20Z" fill="var(--chan-n)" opacity="0.15"/></svg>
             </div>
             <div class="plate-glyph plate-glyph--br">
-                <svg viewBox="0 0 40 40"><path d="M40 40 L20 40 L20 32 L32 32 L32 20 L40 20Z" fill="var(--maya-gold)" opacity="0.15"/></svg>
+                <svg viewBox="0 0 40 40"><path d="M40 40 L20 40 L20 32 L32 32 L32 20 L40 20Z" fill="var(--chan-n)" opacity="0.15"/></svg>
             </div>
         </a>
 
@@ -105,10 +119,10 @@
                 </span>
             </div>
             <div class="plate-glyph plate-glyph--tl">
-                <svg viewBox="0 0 40 40"><path d="M0 0 L20 0 L20 8 L8 8 L8 20 L0 20Z" fill="var(--jade)" opacity="0.15"/></svg>
+                <svg viewBox="0 0 40 40"><path d="M0 0 L20 0 L20 8 L8 8 L8 20 L0 20Z" fill="var(--chan-e)" opacity="0.15"/></svg>
             </div>
             <div class="plate-glyph plate-glyph--br">
-                <svg viewBox="0 0 40 40"><path d="M40 40 L20 40 L20 32 L32 32 L32 20 L40 20Z" fill="var(--jade)" opacity="0.15"/></svg>
+                <svg viewBox="0 0 40 40"><path d="M40 40 L20 40 L20 32 L32 32 L32 20 L40 20Z" fill="var(--chan-e)" opacity="0.15"/></svg>
             </div>
         </a>
     </main>
@@ -118,7 +132,7 @@
         <svg viewBox="0 0 1200 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <pattern id="stepfret-bot" x="0" y="0" width="60" height="28" patternUnits="userSpaceOnUse">
-                    <path d="M0 0 L0 10 L10 10 L10 18 L20 18 L20 28 L40 28 L40 18 L50 18 L50 10 L60 10 L60 0Z" fill="none" stroke="var(--maya-gold)" stroke-width="1.2" opacity="0.5"/>
+                    <path d="M0 0 L0 10 L10 10 L10 18 L20 18 L20 28 L40 28 L40 18 L50 18 L50 10 L60 10 L60 0Z" fill="none" stroke="var(--chan-n)" stroke-width="1.2" opacity="0.5"/>
                 </pattern>
             </defs>
             <rect width="1200" height="28" fill="url(#stepfret-bot)"/>
@@ -145,84 +159,115 @@
     </footer>
 
     <script>
-        // Seismograph waveform animation in the fissure
         (function() {
-            const canvas = document.getElementById('seismo-canvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            let animId;
-            let time = 0;
+            var root = document.documentElement;
+            var toggle = document.getElementById('theme-toggle');
+            var reduce = matchMedia('(prefers-reduced-motion: reduce)');
 
-            function resize() {
-                const rect = canvas.parentElement.getBoundingClientRect();
-                canvas.width = rect.width * window.devicePixelRatio;
-                canvas.height = rect.height * window.devicePixelRatio;
-                canvas.style.width = rect.width + 'px';
-                canvas.style.height = rect.height + 'px';
-                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            function activeTheme() {
+                var t = root.getAttribute('data-theme');
+                if (t === 'light' || t === 'dark') return t;
+                return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            function setTheme(t) {
+                root.setAttribute('data-theme', t);
+                try { localStorage.setItem('rdcf-theme', t); } catch (e) {}
+                syncToggle();
+                startTrace();
+            }
+            function syncToggle() {
+                var next = activeTheme() === 'dark' ? 'claro' : 'oscuro';
+                toggle.setAttribute('aria-label', 'Cambiar a modo ' + next);
+                toggle.title = 'Modo ' + next;
+            }
+            try {
+                var saved = localStorage.getItem('rdcf-theme');
+                if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+            } catch (e) {}
+            toggle.addEventListener('click', function() {
+                setTheme(activeTheme() === 'dark' ? 'light' : 'dark');
+            });
+            matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+                if (!root.getAttribute('data-theme')) { syncToggle(); startTrace(); }
+            });
+            syncToggle();
+
+            // Seismograph waveform animation in the fissure
+            var canvas = document.getElementById('seismo-canvas');
+            var animId = null;
+
+            function tok(name) {
+                return getComputedStyle(root).getPropertyValue(name).trim() || '#888';
+            }
+            function rgba(hex, a) {
+                hex = hex.replace('#', '');
+                if (hex.length === 3) hex = hex.replace(/(.)/g, '$1$1');
+                var n = parseInt(hex, 16);
+                return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+            }
+
+            function fit() {
+                var rect = canvas.parentElement.getBoundingClientRect();
+                var dpr = Math.min(window.devicePixelRatio || 1, 2);
+                canvas.width = Math.max(1, Math.round(rect.width * dpr));
+                canvas.height = Math.max(1, Math.round(rect.height * dpr));
+                var ctx = canvas.getContext('2d');
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                return { ctx: ctx, w: rect.width, h: rect.height };
             }
 
             function drawWave() {
-                const w = canvas.width / window.devicePixelRatio;
-                const h = canvas.height / window.devicePixelRatio;
-                ctx.clearRect(0, 0, w, h);
-
-                // Main seismograph line
-                ctx.beginPath();
-                ctx.strokeStyle = 'rgba(197, 160, 89, 0.6)';
-                ctx.lineWidth = 1.5;
-                ctx.shadowColor = 'rgba(197, 160, 89, 0.4)';
-                ctx.shadowBlur = 8;
-
-                const midX = w / 2;
-                for (let y = 0; y < h; y += 1) {
-                    const progress = y / h;
-                    // Seismograph-style bursts
-                    const burst1 = Math.sin(progress * 12 + time * 2) * Math.exp(-Math.pow(progress - 0.3, 2) * 30) * 12;
-                    const burst2 = Math.sin(progress * 18 + time * 3) * Math.exp(-Math.pow(progress - 0.6, 2) * 25) * 8;
-                    const burst3 = Math.sin(progress * 25 + time * 1.5) * Math.exp(-Math.pow(progress - 0.8, 2) * 35) * 6;
-                    const noise = Math.sin(progress * 40 + time * 4) * 1.5;
-                    const x = midX + burst1 + burst2 + burst3 + noise;
-
-                    if (y === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                }
-                ctx.stroke();
-                ctx.shadowBlur = 0;
-
-                // Secondary trace (ghost)
-                ctx.beginPath();
-                ctx.strokeStyle = 'rgba(45, 138, 110, 0.25)';
-                ctx.lineWidth = 1;
-                for (let y = 0; y < h; y += 1) {
-                    const progress = y / h;
-                    const burst1 = Math.sin(progress * 12 + (time - 0.5) * 2) * Math.exp(-Math.pow(progress - 0.3, 2) * 30) * 12;
-                    const burst2 = Math.sin(progress * 18 + (time - 0.5) * 3) * Math.exp(-Math.pow(progress - 0.6, 2) * 25) * 8;
-                    const x = midX + burst1 + burst2;
-                    if (y === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                }
-                ctx.stroke();
-
-                time += 0.008;
-                animId = requestAnimationFrame(drawWave);
+                if (!canvas) return null;
+                var s = fit(), ctx = s.ctx, w = s.w, h = s.h;
+                var vertical = h >= w;
+                var c1 = tok('--chan-n'), c2 = tok('--chan-e');
+                return function(t) {
+                    ctx.clearRect(0, 0, w, h);
+                    [
+                        { col: rgba(c1, 0.7), lw: 1.5, amp: 1, ph: 0 },
+                        { col: rgba(c2, 0.28), lw: 1, amp: 0.7, ph: 0.9 }
+                    ].forEach(function(c) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = c.col;
+                        ctx.lineWidth = c.lw;
+                        var N = vertical ? h : w;
+                        for (var i = 0; i <= N; i++) {
+                            var p = i / N;
+                            var b1 = Math.sin(p * 12 + t * 2 + c.ph) * Math.exp(-Math.pow(p - 0.3, 2) * 30) * 12 * c.amp;
+                            var b2 = Math.sin(p * 18 + t * 3 + c.ph) * Math.exp(-Math.pow(p - 0.6, 2) * 25) * 8 * c.amp;
+                            var b3 = Math.sin(p * 25 + t * 1.5 + c.ph) * Math.exp(-Math.pow(p - 0.8, 2) * 35) * 6 * c.amp;
+                            var noise = Math.sin(p * 40 + t * 4) * 1.5;
+                            var d = b1 + b2 + b3 + noise;
+                            var x = vertical ? (w / 2 + d) : i;
+                            var y = vertical ? i : (h / 2 + d);
+                            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+                        }
+                        ctx.stroke();
+                    });
+                };
             }
 
-            resize();
-            drawWave();
-            window.addEventListener('resize', () => { resize(); });
-        })();
+            function startTrace() {
+                if (animId) { cancelAnimationFrame(animId); animId = null; }
+                var render = drawWave();
+                if (!render) return;
+                if (reduce.matches) { render(1.4); return; }
+                var t0 = performance.now();
+                (function loop(now) {
+                    render((now - t0) / 1000 * 0.6);
+                    animId = requestAnimationFrame(loop);
+                })(t0);
+            }
 
-        // Tectonic hover — subtle plate shift
-        document.querySelectorAll('.plate').forEach(plate => {
-            plate.addEventListener('mouseenter', () => {
-                plate.style.transform = plate.classList.contains('plate--academic')
-                    ? 'translateX(-6px)' : 'translateX(6px)';
-            });
-            plate.addEventListener('mouseleave', () => {
-                plate.style.transform = 'translateX(0)';
-            });
-        });
+            if (canvas) {
+                startTrace();
+                var rt;
+                window.addEventListener('resize', function() {
+                    clearTimeout(rt);
+                    rt = setTimeout(startTrace, 160);
+                });
+            }
+        })();
     </script>
 </body>
 </html>
